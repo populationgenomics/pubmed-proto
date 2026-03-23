@@ -79,6 +79,10 @@ drop_fields:
   ReferenceList:
     - title
     - reference_list
+  DescriptorName:
+    - value
+  QualifierName:
+    - value
 
 # ── Coercions ────────────────────────────────────────────────────────────────
 coerce_to_bool: true
