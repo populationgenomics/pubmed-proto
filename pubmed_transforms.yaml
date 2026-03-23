@@ -33,8 +33,6 @@ drop_types:
   - EndingDate
   - ItemList
   - Item
-  - ReferenceList
-  - Reference
 
   # MedlineCitation admin fields
   - DateCompleted
