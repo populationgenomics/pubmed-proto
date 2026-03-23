@@ -76,6 +76,9 @@ drop_types:
 drop_fields:
   AbstractText:
     - url
+  ReferenceList:
+    - title
+    - reference_list
 
 # ── Coercions ────────────────────────────────────────────────────────────────
 coerce_to_bool: true
