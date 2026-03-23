@@ -1,0 +1,98 @@
+build:
+  namespace: pubmed
+  package_name: pubmed_proto
+  version: "0.1.0"
+
+# ── Types to drop entirely ────────────────────────────────────────────────────
+# Book-related (not relevant for article parsing)
+# Admin / structural (declared in DTD so the converter can consume and discard them)
+# Inline markup (consumed by serialize_content)
+drop_types:
+  # Book elements
+  - PubmedBookArticle
+  - BookDocument
+  - PubmedBookData
+  - Book
+  - BookTitle
+  - BookDocumentSet
+  - DeleteDocument
+  - DeleteCitation
+  - LocationLabel
+  - VolumeTitle
+  - CollectionTitle
+  - Isbn
+  - Edition
+  - Publisher
+  - PublisherName
+  - PublisherLocation
+  - Sections
+  - Section
+  - SectionTitle
+  - ContributionDate
+  - BeginningDate
+  - EndingDate
+  - ItemList
+  - Item
+  - ReferenceList
+  - Reference
+
+  # MedlineCitation admin fields
+  - DateCompleted
+  - DateRevised
+  - MedlineJournalInfo
+  - ChemicalList
+  - SupplMeshList
+  - CommentsCorrectionsList
+  - GeneSymbolList
+  - PersonalNameSubjectList
+  - NumberOfReferences
+  - OtherAbstract
+  - CoiStatement
+  - SpaceFlightMission
+  - InvestigatorList
+  - GeneralNote
+  - OtherID
+  - CitationSubset
+
+  # Article admin fields
+  - Pagination
+  - ELocationID
+  - Language
+  - DataBankList
+  - VernacularTitle
+  - ArticleDate
+
+  # PubmedData admin fields
+  - History
+  - ObjectList
+
+  # Inline markup
+  - B
+  - I
+  - Sub
+  - Sup
+  - U
+
+# ── Field-level drops ────────────────────────────────────────────────────────
+# Drop the URL field from AbstractText (rarely populated, complex attrs).
+drop_fields:
+  AbstractText:
+    - url
+
+# ── Coercions ────────────────────────────────────────────────────────────────
+coerce_to_bool: true
+
+coerce_to_timestamp:
+  - PubDate
+  - ArticleDate
+
+# ── Structural simplifications ───────────────────────────────────────────────
+inline_wrappers: true
+flatten_list_wrappers: true
+
+# ── Rich-text serialization ───────────────────────────────────────────────────
+serialize_content:
+  ArticleTitle: markdown
+  AbstractText: markdown
+  Keyword: markdown
+  CollectiveName: markdown
