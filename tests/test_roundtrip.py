@@ -29,11 +29,15 @@ _RECORDS = sorted(_RECORDS_DIR.glob('*.xml'))
 def built_package(tmp_path_factory: pytest.TempPathFactory) -> pathlib.Path:
     """Generate the package once via the xsdformer CLI; return the import root."""
     out_dir = tmp_path_factory.mktemp('pubmed_build')
-    subprocess.run(  # noqa: S603
+    subprocess.run(
         [
-            'xsdformer', 'build', str(_REPO_ROOT / 'pubmed.dtd'),
-            '--transforms', str(_REPO_ROOT / 'pubmed_transforms.yaml'),
-            '--out-dir', str(out_dir),
+            'xsdformer',
+            'build',
+            str(_REPO_ROOT / 'pubmed.dtd'),
+            '--transforms',
+            str(_REPO_ROOT / 'pubmed_transforms.yaml'),
+            '--out-dir',
+            str(out_dir),
         ],
         check=True,
         capture_output=True,
@@ -69,7 +73,7 @@ assert pydantic_converter.PubmedArticle_to_proto(model) == proto
 restored = models.PubmedArticle.model_validate_json(model.model_dump_json())
 assert restored == model
 """
-    result = subprocess.run(  # noqa: S603
+    result = subprocess.run(
         [sys.executable, '-c', script],
         check=False,
         capture_output=True,
