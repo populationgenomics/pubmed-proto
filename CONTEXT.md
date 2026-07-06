@@ -21,8 +21,9 @@ the inputs on every build.
 
 **Engine** (`xsd-former` / the `xsdformer` CLI):
 The external tool that turns a DTD + transform config into the generated
-package. Pinned to a published version in `pyproject.toml`; upgrading it can
-change generated output, so it is treated as a build input.
+package. Constrained by a floor in `pyproject.toml` and pinned to an exact
+version in `uv.lock`; upgrading it can change generated output, so it is treated
+as a build input.
 
 **Transforms** (`pubmed_transforms.yaml`):
 The single source of truth for the schema's shape *and* its version
@@ -34,8 +35,8 @@ booleans/timestamps, serializes rich-text to markdown.
 - The generated tree and `dist/` are never committed — only inputs are.
 - The published version is `build.version` in the transforms file, not the
   generator's own `pyproject.toml` version. The release tag must match it.
-- `uv.lock` is committed: the artifact is only reproducible if the engine
-  version is pinned.
+- `uv.lock` is committed: the artifact is only reproducible because the exact
+  engine version is pinned there.
 - The round-trip gate (`tests/`) builds from the real inputs and must pass
   before a release — it is what stops a DTD/transform edit shipping a broken
   wheel.

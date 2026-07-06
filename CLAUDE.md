@@ -29,9 +29,9 @@ default model dispositions. These match the CPG standard (see `litfetch` /
 - **Version lives in `pubmed_transforms.yaml` (`build.version`)**, not in this
   repo's `pyproject.toml`. That is the version `xsdformer` stamps into the wheel
   and what the release tag must match.
-- **`xsd-former` is a build input.** It is pinned to a published version in
-  `pyproject.toml`; bumping it can change generated output, so re-run the
-  round-trip gate after any bump.
+- **`xsd-former` is a build input.** A floor lives in `pyproject.toml`; the
+  exact version is pinned in `uv.lock`. Bumping it can change generated output,
+  so re-run the round-trip gate after any bump.
 - **The round-trip test builds via the `xsdformer` CLI** (the shipping path) and
   imports the result in a subprocess — because the compiled `*_pb2` registers in
   a global descriptor pool. Keep that isolation.

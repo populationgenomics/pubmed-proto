@@ -469,7 +469,7 @@ test = [
 [package.metadata]
 
 [package.metadata.requires-dev]
-dev = [{ name = "xsd-former", specifier = "==1.1.0" }]
+dev = [{ name = "xsd-former", specifier = ">=1.2.0" }]
 lint = [
     { name = "pre-commit" },
     { name = "ruff" },
@@ -479,7 +479,7 @@ test = [
     { name = "protobuf", specifier = ">=6.32.1" },
     { name = "pydantic", specifier = ">=2" },
     { name = "pytest" },
-    { name = "xsd-former", specifier = "==1.1.0" },
+    { name = "xsd-former", specifier = ">=1.2.0" },
 ]
 
 [[package]]
@@ -776,7 +776,7 @@ wheels = [
 
 [[package]]
 name = "xsd-former"
-version = "1.1.0"
+version = "1.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -787,7 +787,7 @@ dependencies = [
     { name = "pyyaml" },
     { name = "xmlschema" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/78/e1/8533aecb4ea02c648d0d1d6cfeeb9d06012606c86dbbe73933cb74baa0ef/xsd_former-1.1.0.tar.gz", hash = "sha256:5775800af2bed360dfb06082018675e96d7311b4be7306de0e1636a03f8661b0", size = 244213, upload-time = "2026-07-06T08:15:11.758Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/26/2f/ffdc1bf35f1c6b9ac32e46565f1f2ff91660ea2f690a25c6c3983f796338/xsd_former-1.2.0.tar.gz", hash = "sha256:6d02d1f226ce5fa7294d3065ab6043d088b1cef74919229a9b07467a5a285883", size = 247146, upload-time = "2026-07-06T10:10:51.912Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/86/4d/f9a2c26c752dd7152fc963b595e6440e00636c6d8bb8b77d0e0f9bc8d91b/xsd_former-1.1.0-py3-none-any.whl", hash = "sha256:20e79d51b02cf706dfe096a6e9244d2e6c6e7c8c2fed1031be17abe44f5db3b5", size = 51289, upload-time = "2026-07-06T08:15:10.458Z" },
+    { url = "https://files.pythonhosted.org/packages/2d/4e/40688858b3eac254da43444f39e806fb6bf4dbd50bfa094d9a964811bf29/xsd_former-1.2.0-py3-none-any.whl", hash = "sha256:2529cee5f478f45ad99519a3be3108b377a723307621f8b7c5f40fc8c260c8eb", size = 53104, upload-time = "2026-07-06T10:10:50.436Z" },
 ]
