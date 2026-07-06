@@ -1,6 +1,7 @@
 build:
   namespace: pubmed
-  package_name: pubmed_proto
+  package_name: pubmed_proto      # import module (must be a valid identifier)
+  distribution_name: pubmed-proto # [project] name on PyPI (kebab, for consistency)
   version: "0.1.0"
 
 # ── Types to drop entirely ────────────────────────────────────────────────────
