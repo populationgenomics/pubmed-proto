@@ -1,3 +1,21 @@
+<!-- ============================================================
+     PROVENANCE (this block added by CPG; not part of the upstream NLM DTD)
+
+     Source:   U.S. National Library of Medicine PubMed DTD, version
+               pubmed_250101 (dated 2024-08-28).
+               https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_250101.dtd
+     Status:   NLM DTDs are U.S. Government works, public domain in the US.
+
+     Local modification: the external MathML module include was removed so
+     the DTD is self-contained for schema generation. Upstream 250101 has,
+     just after the notation declarations:
+         ENTITY % mathml-in-pubmed SYSTEM "mathml-in-pubmed.mod" (+ its %ref)
+     MathML markup inside titles/abstracts is not modelled here. With that
+     one include removed, this file is byte-identical to upstream 250101.
+
+     Vendored deliberately (not fetched at build time) so the generated
+     pubmed-proto schema stays reproducible and pinned.
+     ============================================================ -->
 <!--
 
 2024-08-28

@@ -56,6 +56,28 @@ serializing rich-text fields to markdown. See the
 [`xsd-former`](https://github.com/populationgenomics/xsd-former) docs for the
 transform reference.
 
+## Provenance & attribution
+
+`pubmed.dtd` is derived from the **U.S. National Library of Medicine PubMed
+DTD**, version `pubmed_250101` (dated 2024-08-28):
+
+<https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_250101.dtd>
+
+NLM DTDs are U.S. Government works and public domain in the United States; the
+MIT `LICENSE` in this repo covers CPG's own files (transforms, generator wiring,
+tests), not the NLM DTD.
+
+**Local modification:** the external MathML module include
+(`<!ENTITY % mathml-in-pubmed SYSTEM "mathml-in-pubmed.mod">` and its reference)
+was removed so the DTD is self-contained for schema generation — MathML markup
+in titles/abstracts is not modelled. With that one include removed, the file is
+byte-identical to upstream `pubmed_250101`.
+
+The DTD is **vendored deliberately, not fetched at build time**: it's a modified
+derivative (so a fetch wouldn't reproduce it), and pinning the exact bytes keeps
+the generated schema reproducible. The full provenance also lives in a comment
+at the top of `pubmed.dtd`.
+
 ## Releasing
 
 The published version is **`build.version` in `pubmed_transforms.yaml`** (what
