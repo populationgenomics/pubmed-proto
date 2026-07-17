@@ -2,7 +2,7 @@ build:
   namespace: pubmed
   package_name: pubmed_proto      # import module (must be a valid identifier)
   distribution_name: pubmed-proto # [project] name on PyPI (kebab, for consistency)
-  version: "0.1.0"
+  version: "0.2.0"
   description: "Typed protobuf + pydantic models and converters for NLM PubMed XML."
   license: MIT                    # SPDX; do NOT also add a License :: classifier (PEP 639)
   readme: README.md               # resolved relative to this config file (repo root)
