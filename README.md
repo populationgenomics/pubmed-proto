@@ -67,6 +67,13 @@ NLM DTDs are U.S. Government works and public domain in the United States; the
 MIT `LICENSE` in this repo covers CPG's own files (transforms, generator wiring,
 tests), not the NLM DTD.
 
+Courtesy of the U.S. National Library of Medicine. NLM does not endorse this
+package. The vendored DTD and the PubMed records under `tests/records/` are
+pinned snapshots and do not necessarily reflect the most current data available
+from NLM — fetch from NLM directly for current data. Article abstracts within
+those records remain the copyright of their publishers or authors; they are
+included solely as parser fixtures.
+
 **Local modification:** the external MathML module include
 (`<!ENTITY % mathml-in-pubmed SYSTEM "mathml-in-pubmed.mod">` and its reference)
 was removed so the DTD is self-contained for schema generation — MathML markup
