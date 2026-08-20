@@ -1,0 +1,8 @@
+# Vendored upstream schema: NLM's DTD, kept byte-identical apart from the
+# documented provenance comment and the removed MathML include. Never rewritten
+# by a hygiene hook, never counted in GitHub's language stats.
+pubmed.dtd linguist-vendored=true
+
+# Record fixtures: real NLM efetch output, kept verbatim. Collapse in diffs and
+# drop from language stats — otherwise GitHub calls this an XML repo.
+tests/records/*.xml linguist-generated=true
