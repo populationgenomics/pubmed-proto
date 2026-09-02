@@ -3,6 +3,9 @@
 # by a hygiene hook, never counted in GitHub's language stats.
 pubmed.dtd linguist-vendored=true
 
-# Record fixtures: real NLM efetch output, kept verbatim. Collapse in diffs and
-# drop from language stats — otherwise GitHub calls this an XML repo.
+# Record fixtures: NLM efetch output, verbatim except pmid_20301425.xml, whose
+# AbstractText paragraphs are a placeholder and whose CopyrightInformation is
+# removed so the fixture carries only bytes we may redistribute (README,
+# Provenance). Collapse in diffs and drop from language stats — otherwise
+# GitHub calls this an XML repo.
 tests/records/*.xml linguist-generated=true
