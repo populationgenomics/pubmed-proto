@@ -2,7 +2,7 @@ build:
   namespace: pubmed
   package_name: pubmed_proto      # import module (must be a valid identifier)
   distribution_name: pubmed-proto # [project] name on PyPI (kebab, for consistency)
-  version: "0.2.0"
+  version: "0.3.0"
   description: "Typed protobuf + pydantic models and converters for NLM PubMed XML."
   license: MIT                    # SPDX; do NOT also add a License :: classifier (PEP 639)
   readme: README.md               # resolved relative to this config file (repo root)
@@ -25,39 +25,15 @@ build:
     - "Typing :: Typed"
 
 # ── Types to drop entirely ────────────────────────────────────────────────────
-# Book-related (not relevant for article parsing)
 # Admin / structural (declared in DTD so the converter can consume and discard them)
 # Inline markup (consumed by serialize_content)
 drop_types:
-  # Book elements
-  - PubmedBookArticle
-  - BookDocument
-  - PubmedBookData
-  - Book
-  - BookTitle
-  - BookDocumentSet
+  # Deletion notices (PMIDs withdrawn from a set)
   - DeleteDocument
   - DeleteCitation
-  - LocationLabel
-  - VolumeTitle
-  - CollectionTitle
-  - Isbn
-  - Edition
-  - Publisher
-  - PublisherName
-  - PublisherLocation
-  - Sections
-  - Section
-  - SectionTitle
-  - ContributionDate
-  - BeginningDate
-  - EndingDate
-  - ItemList
-  - Item
 
   # MedlineCitation admin fields
   - DateCompleted
-  - DateRevised
   - MedlineJournalInfo
   - ChemicalList
   - SupplMeshList
@@ -70,12 +46,10 @@ drop_types:
   - SpaceFlightMission
   - InvestigatorList
   - GeneralNote
-  - OtherID
   - CitationSubset
 
   # Article admin fields
   - Pagination
-  - ELocationID
   - Language
   - DataBankList
   - VernacularTitle
@@ -110,7 +84,10 @@ coerce_to_bool: true
 
 coerce_to_timestamp:
   - PubDate
-  - ArticleDate
+  - DateRevised
+  - ContributionDate
+  - BeginningDate
+  - EndingDate
 
 # ── Structural simplifications ───────────────────────────────────────────────
 inline_wrappers: true
@@ -122,3 +99,7 @@ serialize_content:
   AbstractText: markdown
   Keyword: markdown
   CollectiveName: markdown
+  Citation: markdown
+  BookTitle: markdown
+  CollectionTitle: markdown
+  SectionTitle: markdown

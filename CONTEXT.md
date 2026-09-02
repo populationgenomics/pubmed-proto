@@ -2,7 +2,7 @@
 
 pubmed-proto owns *the shape of the `pubmed_proto` package*: which PubMed XML elements survive into the schema, how they
 are named, and how they coerce. It does **not** own the generation engine (that is `xsd-former`) nor how consumers store
-or render the parsed articles.
+or render the parsed records.
 
 ## Language
 
@@ -19,7 +19,7 @@ generated package. Constrained by a floor in `pyproject.toml` and pinned to an e
 can change generated output, so it is treated as a build input.
 
 **Transforms** (`pubmed_transforms.yaml`): The single source of truth for the schema's shape *and* its version
-(`build.version`). Drops book/admin types, flattens list wrappers, coerces booleans/timestamps, serializes rich-text to
+(`build.version`). Drops admin types, flattens list wrappers, coerces booleans/timestamps, serializes rich-text to
 markdown.
 
 ## Invariants
