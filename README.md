@@ -40,6 +40,30 @@ The package exposes four modules (all typed; ships `py.typed`):
 | `xml_converter`      | PubMed XML → protobuf (per-message factory funcs)   |
 | `pydantic_converter` | protobuf ↔ pydantic (`X_from_proto` / `X_to_proto`) |
 
+### Rich-text fields
+
+`ArticleTitle`, `AbstractText`, `Keyword`, `CollectiveName`, `Citation`, `BookTitle`, `CollectionTitle` and
+`SectionTitle` carry their inline markup as markdown in `value`: `<b>` becomes `**…**`, `<i>` becomes `*…*`, `<u>`
+becomes `__…__`, `<sup>` becomes `^(…)` and `<sub>` becomes `~(…)`.
+
+Literal characters in the text that could be read as one of those markers are backslash-escaped: `\`, `*`, `_`, `^` and
+`~` everywhere, and `)` inside a `^(…)` or `~(…)`, where an unescaped `)` closes it. The markers themselves are never
+escaped. The title of PMID 34207366 comes out as
+
+```
+*Cis*-Segregation of c.1171C>T Stop Codon (p.R391\*) in *SERPINC1* Gene …
+```
+
+The escapes are CommonMark backslash escapes, so a CommonMark renderer shows the stop codon as `p.R391*`. Other markdown
+syntax in the text is not neutralised: a pair of backticks still forms a code span, and `<…>` can still form raw HTML.
+
+For plain text, call `xml_converter.markdown_to_plain_text(value)`, which unescapes while it drops the markers and
+returns `Cis-Segregation of c.1171C>T Stop Codon (p.R391*) in SERPINC1 Gene …`. In another language, the same thing is
+one left-to-right scan: a `\` and the character after it stand for that character; an unescaped `*` or `_` is dropped;
+`^(` or `~(` is dropped and opens a script; an unescaped `)` is dropped if a script is open (closing the innermost one)
+and kept otherwise. A regex that strips the markers and ignores the escapes (`re.sub(r'[*_]', '', value)`, say) turns
+the stop codon into `p.R391\`. Releases before 0.4.0 did not escape, so their output cannot be stripped losslessly.
+
 ## Developing the generator
 
 Requires [`uv`](https://docs.astral.sh/uv/).
