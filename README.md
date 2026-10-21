@@ -1,7 +1,7 @@
 # pubmed-proto
 
-Generates **`pubmed_proto`** — a typed Python package for parsing NLM PubMed XML into protobuf and pydantic models —
-from the PubMed DTD.
+Generates **`pubmed_proto`** — a typed Python package for parsing NLM PubMed XML into protobuf messages — from the
+PubMed DTD.
 
 This repository is the **generator**, not the package. It holds the inputs (`pubmed.dtd`, `pubmed_transforms.yaml`) and
 drives [`xsd-former`](https://github.com/populationgenomics/xsd-former) (the `xsdformer` CLI) to emit the `pubmed_proto`
@@ -18,27 +18,24 @@ pip install pubmed_proto      # or: uv add pubmed_proto
 
 ```python
 from lxml import etree
-from pubmed_proto import xml_converter, pydantic_converter, models
+from pubmed_proto import xml_converter
 
 tree = etree.parse("efetch_output.xml")
 record_set = xml_converter.PubmedArticleSet(tree.getroot())  # XML -> protobuf
 
-proto = record_set.pubmed_article[0]                          # or .pubmed_book_article
-model = pydantic_converter.PubmedArticle_from_proto(proto)  # protobuf -> pydantic
-json_str = model.model_dump_json()                          # pydantic -> JSON
+article = record_set.pubmed_article[0]  # or .pubmed_book_article
+data = article.SerializeToString()      # protobuf wire bytes, for storage
 ```
 
 An `efetch` response is a `PubmedArticleSet` of journal articles (`PubmedArticle`) and Bookshelf records
 (`PubmedBookArticle` — a GeneReviews chapter, say); both are modelled, with one converter per message.
 
-The package exposes four modules (all typed; ships `py.typed`):
+The package exposes two modules (both typed; ships `py.typed`):
 
-| module               | purpose                                             |
-| -------------------- | --------------------------------------------------- |
-| `pubmed_pb2`         | compiled protobuf messages (`Article`, `Author`, …) |
-| `models`             | pydantic models mirroring the protobuf schema       |
-| `xml_converter`      | PubMed XML → protobuf (per-message factory funcs)   |
-| `pydantic_converter` | protobuf ↔ pydantic (`X_from_proto` / `X_to_proto`) |
+| module          | purpose                                             |
+| --------------- | --------------------------------------------------- |
+| `pubmed_pb2`    | compiled protobuf messages (`Article`, `Author`, …) |
+| `xml_converter` | PubMed XML → protobuf (per-message factory funcs)   |
 
 ### Rich-text fields
 
@@ -72,7 +69,7 @@ Requires [`uv`](https://docs.astral.sh/uv/).
 make generate   # DTD + transforms -> generated/pubmed_proto/
 make build      # generate, then build the wheel into dist/
 make clean      # remove generated/ and dist/
-uv run --group test pytest   # round-trip gate over real PubMed records
+uv run --group test pytest   # record gate over real PubMed records
 ```
 
 Shaping the output is done in **`pubmed_transforms.yaml`** — dropping admin types, flattening list wrappers, coercing

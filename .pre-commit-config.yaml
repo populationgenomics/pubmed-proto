@@ -7,7 +7,7 @@ default_language_version:
 
 # The vendored DTD and the record fixtures are upstream bytes: the DTD is
 # byte-identical to NLM's apart from the documented provenance comment, and the
-# fixtures are what the round-trip gate asserts against. A whitespace rewrite
+# fixtures are what the record gate asserts against. A whitespace rewrite
 # would silently break both, so the byte-touching hooks skip them.
 exclude: '^(pubmed\.dtd|tests/records/)'
 

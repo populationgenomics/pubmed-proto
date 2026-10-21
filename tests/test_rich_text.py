@@ -70,7 +70,7 @@ json.dump({{'values': values, 'plain': plain}}, sys.stdout)
 
 @pytest.fixture(scope='module')
 def converted(built_package: pathlib.Path) -> dict[str, dict[str, str]]:
-    """Run every case through the built converter in one subprocess (see test_roundtrip.py)."""
+    """Run every case through the built converter in one subprocess (see test_records.py)."""
     result = subprocess.run(
         [sys.executable, '-c', _CONVERT_SCRIPT.format(built_package=str(built_package))],
         input=json.dumps({case: [name, xml] for case, (name, xml, _) in _CASES.items()}),

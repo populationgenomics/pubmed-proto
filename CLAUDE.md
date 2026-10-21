@@ -24,12 +24,12 @@ the CPG standard (see `litfetch`).
 - **Version lives in `pubmed_transforms.yaml` (`build.version`)**, not in this repo's `pyproject.toml`. That is the
   version `xsdformer` stamps into the wheel and what the release tag must match.
 - **`xsd-former` is a build input.** A floor lives in `pyproject.toml`; the exact version is pinned in `uv.lock`.
-  Bumping it can change generated output, so re-run the round-trip gate after any bump.
-- **The round-trip test builds via the `xsdformer` CLI** (the shipping path) and imports the result in a subprocess —
+  Bumping it can change generated output, so re-run the record gate after any bump.
+- **The record gate builds via the `xsdformer` CLI** (the shipping path) and imports the result in a subprocess —
   because the compiled `*_pb2` registers in a global descriptor pool. Keep that isolation.
 
 ## Before committing
 
-- `uv run --group test pytest` — the round-trip gate must pass.
+- `uv run --group test pytest` — the record gate must pass.
 - `uv run --group lint ruff check . && uv run --group lint ruff format --check .`
 - `uv lock` if dependencies changed, and commit `uv.lock`.
