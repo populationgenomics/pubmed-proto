@@ -10,9 +10,9 @@ or render the parsed records.
 `pubmed_transforms.yaml`, `Makefile`, `pyproject.toml`. Its own distribution is `pubmed-proto-generator`; it is never
 published. *Avoid*: "the package" (that is the generated artifact, below).
 
-**Generated package** (`pubmed_proto`): The published, consumable artifact — protobuf + pydantic models + converters,
-emitted under `generated/` and built into a wheel. Gitignored; reproduced from the inputs on every build. *Avoid*:
-"pubmed-proto" (that is the generator repo).
+**Generated package** (`pubmed_proto`): The published, consumable artifact — compiled protobuf messages and an XML
+converter, emitted under `generated/` and built into a wheel. Gitignored; reproduced from the inputs on every build.
+*Avoid*: "pubmed-proto" (that is the generator repo).
 
 **Engine** (`xsd-former` / the `xsdformer` CLI): The external tool that turns a DTD + transform config into the
 generated package. Constrained by a floor in `pyproject.toml` and pinned to an exact version in `uv.lock`; upgrading it
@@ -28,5 +28,5 @@ markdown.
 - The published version is `build.version` in the transforms file, not the generator's own `pyproject.toml` version. The
   release tag must match it.
 - `uv.lock` is committed: the artifact is only reproducible because the exact engine version is pinned there.
-- The round-trip gate (`tests/`) builds from the real inputs and must pass before a release — it is what stops a
+- The record gate (`tests/`) builds from the real inputs and must pass before a release — it is what stops a
   DTD/transform edit shipping a broken wheel.

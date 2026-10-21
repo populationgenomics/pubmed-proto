@@ -2,14 +2,14 @@ build:
   namespace: pubmed
   package_name: pubmed_proto      # import module (must be a valid identifier)
   distribution_name: pubmed-proto # [project] name on PyPI (kebab, for consistency)
-  version: "0.4.0"
-  description: "Typed protobuf + pydantic models and converters for NLM PubMed XML."
+  version: "0.5.0"
+  description: "Typed protobuf messages and an XML converter for NLM PubMed XML."
   license: MIT                    # SPDX; do NOT also add a License :: classifier (PEP 639)
   readme: README.md               # resolved relative to this config file (repo root)
   license_file: LICENSE
   authors:
     - name: "Centre for Population Genomics"
-  keywords: [pubmed, ncbi, protobuf, pydantic, xml, bioinformatics]
+  keywords: [pubmed, ncbi, protobuf, xml, bioinformatics]
   urls:
     Repository: "https://github.com/populationgenomics/pubmed-proto"
     Issues: "https://github.com/populationgenomics/pubmed-proto/issues"
