@@ -30,7 +30,6 @@ import sys
 
 import pytest
 
-_REPO_ROOT = pathlib.Path(__file__).parents[1]
 _RECORDS_DIR = pathlib.Path(__file__).parent / 'records'
 _RECORDS = sorted(_RECORDS_DIR.glob('*.xml'))
 
@@ -89,27 +88,6 @@ for proto, book_document_el in zip(record_set.pubmed_book_article, book_document
         models.PubmedBookArticle,
     )
 """
-
-
-@pytest.fixture(scope='module')
-def built_package(tmp_path_factory: pytest.TempPathFactory) -> pathlib.Path:
-    """Generate the package once via the xsdformer CLI; return the import root."""
-    out_dir = tmp_path_factory.mktemp('pubmed_build')
-    subprocess.run(
-        [
-            'xsdformer',
-            'build',
-            str(_REPO_ROOT / 'pubmed.dtd'),
-            '--transforms',
-            str(_REPO_ROOT / 'pubmed_transforms.yaml'),
-            '--out-dir',
-            str(out_dir),
-        ],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    return out_dir
 
 
 def test_records_present() -> None:
