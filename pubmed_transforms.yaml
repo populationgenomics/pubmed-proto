@@ -2,7 +2,7 @@ build:
   namespace: pubmed
   package_name: pubmed_proto      # import module (must be a valid identifier)
   distribution_name: pubmed-proto # [project] name on PyPI (kebab, for consistency)
-  version: "0.5.0"
+  version: "0.6.0"
   description: "Typed protobuf messages and an XML converter for NLM PubMed XML."
   license: MIT                    # SPDX; do NOT also add a License :: classifier (PEP 639)
   readme: README.md               # resolved relative to this config file (repo root)
@@ -74,10 +74,6 @@ drop_fields:
   ReferenceList:
     - title
     - reference_list
-  DescriptorName:
-    - value
-  QualifierName:
-    - value
 
 # ── Coercions ────────────────────────────────────────────────────────────────
 coerce_to_bool: true

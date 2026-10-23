@@ -8,7 +8,9 @@ NLM PubMed XML records with the generated ``xml_converter`` and checks that:
 * every journal article and Bookshelf record in the set comes out, each article
   under the PMID its XML carries,
 * the field the DTD requires of each kind is populated (``ArticleTitle``,
-  ``BookTitle``), and
+  ``BookTitle``),
+* every MeSH heading keeps its descriptor and qualifier names as in the XML,
+  and
 * the optional book fields the gate covers (``Sections``, ``DateRevised``) are
   in the proto exactly when they are in the XML,
 
@@ -31,6 +33,7 @@ import subprocess
 import sys
 
 import pytest
+from lxml import etree
 
 _RECORDS_DIR = pathlib.Path(__file__).parent / 'records'
 _RECORDS = sorted(_RECORDS_DIR.glob('*.xml'))
@@ -48,6 +51,11 @@ def check_article_populated(proto, article_el):
     citation = proto.medline_citation
     assert citation.pmid.value == article_el.findtext('MedlineCitation/PMID'), 'PMID differs from the XML'
     assert citation.article.article_title.value, 'ArticleTitle not populated'
+    heading_els = article_el.findall('MedlineCitation/MeshHeadingList/MeshHeading')
+    for heading, heading_el in zip(citation.mesh_heading_list, heading_els, strict=True):
+        assert heading.descriptor_name.value == heading_el.findtext('DescriptorName'), 'DescriptorName differs'
+        qualifier_names = [qualifier.value for qualifier in heading.qualifier_name]
+        assert qualifier_names == [el.text for el in heading_el.findall('QualifierName')], 'QualifierName differs'
 
 
 def check_book_populated(proto, book_document_el):
@@ -75,6 +83,11 @@ for proto, book_document_el in zip(record_set.pubmed_book_article, book_document
 
 def test_records_present() -> None:
     assert _RECORDS, f'no PubMed record fixtures found in {_RECORDS_DIR}'
+
+
+def test_a_record_has_a_qualified_mesh_heading() -> None:
+    # Without one, the MeSH name comparison in the record gate passes vacuously.
+    assert any(etree.parse(record).find('.//MeshHeading/QualifierName') is not None for record in _RECORDS)
 
 
 @pytest.mark.parametrize('record', _RECORDS, ids=lambda p: p.stem)
